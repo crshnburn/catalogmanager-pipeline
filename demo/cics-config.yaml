@@ -1,0 +1,10 @@
+# https://kubernetes.io/docs/concepts/configuration/configmap/
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cics-config
+  namespace: catalogmanager-api
+data:
+  HOST: winmvs3s.hursley.ibm.como
+  PORT: '1100'
+---
