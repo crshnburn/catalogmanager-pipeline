@@ -14,6 +14,6 @@ spec:
     pullPolicy: IfNotPresent
     containerPort: 9080
   service:
-    type: NodePort
+    type: ClusterIP
     port: 9080
     targetPort: 9080
