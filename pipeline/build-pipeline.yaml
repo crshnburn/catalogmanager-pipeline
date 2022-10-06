@@ -1,0 +1,83 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: api-build
+  namespace: zosconnect-pipeline
+spec:
+  tasks:
+    - name: get-code
+      params:
+        - name: url
+          value: 'https://github.com/crshnburn/cics-demo'
+        - name: submodules
+          value: 'true'
+        - name: depth
+          value: '1'
+        - name: sslVerify
+          value: 'true'
+        - name: crtFileName
+          value: ca-bundle.crt
+        - name: deleteExisting
+          value: 'true'
+        - name: verbose
+          value: 'true'
+        - name: gitInitImage
+          value: >-
+            gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.29.0
+        - name: userHome
+          value: /tekton/home
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: project-source
+    - name: api-build
+      params:
+        - name: GRADLE_IMAGE
+          value: >-
+            docker.io/library/gradle:6.9-jdk8@sha256:571312a1555f5a43305e3a73505c1786c335e8acc441495a396f054194327885
+        - name: PROJECT_DIR
+          value: .
+        - name: TASKS
+          value:
+            - build
+      runAfter:
+        - get-code
+      taskRef:
+        kind: Task
+        name: gradle
+      workspaces:
+        - name: source
+          workspace: project-source
+    - name: image-build
+      params:
+        - name: IMAGE
+          value: 'uk.icr.io/vnext/catalogmanager:latest'
+        - name: BUILDER_IMAGE
+          value: 'quay.io/buildah/stable:v1.23.3'
+        - name: STORAGE_DRIVER
+          value: overlay
+        - name: DOCKERFILE
+          value: ./Dockerfile
+        - name: CONTEXT
+          value: .
+        - name: TLSVERIFY
+          value: 'true'
+        - name: FORMAT
+          value: oci
+        - name: SKIP_PUSH
+          value: 'false'
+      runAfter:
+        - api-build
+      taskRef:
+        kind: Task
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: project-source
+        - name: dockerconfig
+          workspace: docker-config
+  workspaces:
+    - name: project-source
+    - name: docker-config
