@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zosconnect-pipeline
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: zosconnect-pipeline
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: pipeline
+    repoURL: 'https://github.com/crshnburn/catalogmanager-pipeline'
+    targetRevision: HEAD
