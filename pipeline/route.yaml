@@ -2,7 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: github-eventlistener-route
-  namespace: catalogmanager-api
+  namespace: zosconnect-pipeline
 spec:
   host: >-
     catalogmanager-api-eventlistener.apps.z-stack-demo.cp.fyre.ibm.com
