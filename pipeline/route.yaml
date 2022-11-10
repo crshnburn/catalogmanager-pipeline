@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: zosconnect-sample-service
+  namespace: catalogmanager-api
+spec:
+  host: >-
+    catalogmanager-api-eventlistener.apps.z-stack-demo.cp.fyre.ibm.com
+  to:
+    kind: Service
+    name: el-github-listener
+    weight: 100
+  port:
+    targetPort: 9080
+  wildcardPolicy: None
