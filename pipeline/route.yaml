@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: zosconnect-sample-service
+  name: github-eventlistener-route
   namespace: catalogmanager-api
 spec:
   host: >-
