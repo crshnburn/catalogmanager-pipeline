@@ -35,7 +35,7 @@ spec:
           secret:
             items: []
             secretName: dockerconfig-secret
-        - name: git-creds
+        - name: ghe-creds
           secret:
             items: []
             secretName: ghe-creds
