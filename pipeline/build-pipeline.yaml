@@ -4,11 +4,16 @@ metadata:
   name: api-build
   namespace: zosconnect-pipeline
 spec:
+  params:
+    - default: main
+      description: git branch to build
+      name: git-revision
+      type: string
   tasks:
     - name: get-code
       params:
         - name: url
-          value: 'https://github.com/crshnburn/cics-demo'
+          value: 'https://github.ibm.com/SMITHSON/cics-demo'
         - name: submodules
           value: 'true'
         - name: depth
@@ -21,6 +26,8 @@ spec:
           value: 'true'
         - name: verbose
           value: 'true'
+        - name: revision
+          value: $(params.git-revision)
         - name: gitInitImage
           value: >-
             gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.29.0
@@ -32,6 +39,8 @@ spec:
       workspaces:
         - name: output
           workspace: project-source
+        - name: basic-auth
+          workspace: ghe-creds
     - name: api-build
       params:
         - name: GRADLE_IMAGE
@@ -53,7 +62,7 @@ spec:
     - name: image-build
       params:
         - name: IMAGE
-          value: 'uk.icr.io/vnext/catalogmanager:latest'
+          value: uk.icr.io/vnext/catalogmanager:$(params.git-revision)
         - name: BUILDER_IMAGE
           value: 'quay.io/buildah/stable:v1.23.3'
         - name: STORAGE_DRIVER
@@ -81,3 +90,4 @@ spec:
   workspaces:
     - name: project-source
     - name: docker-config
+    - name: ghe-creds
