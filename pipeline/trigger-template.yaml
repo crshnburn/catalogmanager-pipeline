@@ -1,0 +1,41 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: github-pipelinerun
+spec:
+  params:
+  - name: gitbranch
+  - name: gitrevision
+  - name: gitrepositoryname
+  - name: gitrepositoryurl
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      annotations:
+        pipeline.openshift.io/started-by: SMITHSON@uk.ibm.com
+      generateName: api-build-
+      labels:
+        app.kubernetes.io/instance: zosconnect-pipeline
+        tekton.dev/pipeline: api-build
+      namespace: zosconnect-pipeline
+    spec:
+      params:
+        - name: git-revision
+          value: $(tt.params.gitbranch)
+      pipelineRef:
+        name: api-build
+      resources: []
+      status: null
+      workspaces:
+        - name: project-source
+          persistentVolumeClaim:
+            claimName: pipeline-source
+        - name: docker-config
+          secret:
+            items: []
+            secretName: dockerconfig-secret
+        - name: git-creds
+          secret:
+            items: []
+            secretName: ghe-creds

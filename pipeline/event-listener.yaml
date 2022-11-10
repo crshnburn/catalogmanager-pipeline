@@ -1,0 +1,22 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: github-listener
+spec:
+  triggers:
+  - name: github-push-listener
+    interceptors:
+    - name: CEL extracts branch name
+      ref:
+        name: cel
+      params:
+      - name: overlays
+        value:
+        - key: truncated_sha
+          expression: "body.after.truncate(7)"
+        - key: branch_name
+          expression: "body.ref.split('/')[2]"
+    bindings:
+    - ref: github-push
+    template:
+      ref: github-pipelinerun
