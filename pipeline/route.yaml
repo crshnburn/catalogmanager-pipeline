@@ -4,8 +4,6 @@ metadata:
   name: github-eventlistener-route
   namespace: zosconnect-pipeline
 spec:
-  host: >-
-    catalogmanager-api-eventlistener.apps.z-stack-demo.cp.fyre.ibm.com
   to:
     kind: Service
     name: el-github-listener
