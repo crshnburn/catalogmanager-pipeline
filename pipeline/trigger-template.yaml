@@ -30,7 +30,7 @@ spec:
       workspaces:
         - name: project-source
           persistentVolumeClaim:
-            claimName: github-source
+            claimName: ci-source
         - name: docker-config
           secret:
             items: []
