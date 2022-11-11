@@ -9,7 +9,7 @@ spec:
   license:
     accept: true
   deployment:
-    image: uk.icr.io/vnext/catalogmanager:latest
+    image: quay.io/crshnburn/catalogmanager:main
     replicas: 1
     pullPolicy: IfNotPresent
     containerPort: 9080
