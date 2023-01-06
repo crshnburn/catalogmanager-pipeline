@@ -6,5 +6,5 @@ metadata:
   namespace: catalogmanager-api
 data:
   CICS_HOST: winmvs3s.hursley.ibm.com
-  CICS_PORT: '1100'
+  CICS_PORT: '1110'
 ---
