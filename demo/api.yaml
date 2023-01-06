@@ -13,6 +13,17 @@ spec:
     replicas: 1
     pullPolicy: IfNotPresent
     containerPort: 9080
+    env:
+      - name: CICS_HOST
+        valueFrom:
+          configMapKeyRef:
+            key: CICS_HOST
+            name: cics-config
+      - name: CICS_PORT
+        valueFrom:
+          configMapKeyRef:
+            key: CICS_PORT
+            name: cics-config
   service:
     type: ClusterIP
     port: 9080
