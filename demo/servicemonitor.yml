@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: api-example-monitor
+  name: api-example-monitor
+  namespace: catalogmanager-api
+spec:
+  endpoints:
+  - interval: 30s
+    port: ''
+    scheme: http
+  selector:
+    matchLabels:
+      app: zosconnect-sample-service
