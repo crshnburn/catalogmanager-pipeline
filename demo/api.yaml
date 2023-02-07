@@ -6,6 +6,7 @@ metadata:
 spec:
   systemStatus: betterThanYesterday
   version: "v1.0.0"
+  expose: true
   license:
     accept: true
   deployment:
