@@ -12,7 +12,7 @@ spec:
   deployment:
     image: quay.io/crshnburn/catalogmanager:demotest
     replicas: 1
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     containerPort: 9080
     env:
       - name: CICS_HOST
