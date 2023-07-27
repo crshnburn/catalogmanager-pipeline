@@ -10,7 +10,7 @@ spec:
   license:
     accept: true
   deployment:
-    image: quay.io/crshnburn/catalogmanager:complete
+    image: quay.io/crshnburn/catalogmanager:demotest
     replicas: 1
     pullPolicy: IfNotPresent
     containerPort: 9080
