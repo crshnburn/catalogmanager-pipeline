@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: zconcics
-        image: docker-eu.artifactory.swg-devops.com/sys-k8s-zos-team-docker-local/experimental/cics-catalog-api:latest
+        image: docker-eu.artifactory.swg-devops.com/sys-k8s-zos-team-docker-local/cics-demo:latest
         imagePullPolicy: IfNotPresent
         readinessProbe:
           tcpSocket:
