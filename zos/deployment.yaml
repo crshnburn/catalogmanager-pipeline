@@ -43,12 +43,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: zconcics-config
-              key: cics_host
+              key: CICS_HOST
         - name: CICS_PORT
           valueFrom:
             configMapKeyRef:
               name: zconcics-config
-              key: cics_port
+              key: CICS_PORT
         securityContext:
           allowPrivilegeEscalation: false
       nodeName: wnode.winmvs3h.hursley.ibm.com
