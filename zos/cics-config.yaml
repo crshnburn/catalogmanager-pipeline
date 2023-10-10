@@ -1,0 +1,10 @@
+# https://kubernetes.io/docs/concepts/configuration/configmap/
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: zconcics-config
+  namespace: catalogmanager-api
+data:
+  CICS_HOST: winmvs3s.hursley.ibm.com
+  CICS_PORT: '1110'
+

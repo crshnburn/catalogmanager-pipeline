@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogmanager
+  namespace: catalogmanager-api
+  labels:
+    app: catalogmanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalogmanager
+  template:
+    metadata:
+      labels:
+        app: catalogmanager
+      annotations:
+        "zoscontainers.ibm.com/networking": "hybrid"
+        "zoscontainers.ibm.com/userid": "OCIUSER"
+    spec:
+      containers:
+      - name: zconcics
+        image: docker-eu.artifactory.swg-devops.com/sys-k8s-zos-team-docker-local/experimental/cics-catalog-api:latest
+        imagePullPolicy: IfNotPresent
+        readinessProbe:
+          tcpSocket:
+            port: 9080
+          initialDelaySeconds: 60
+          timeoutSeconds: 1
+          periodSeconds: 25
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          tcpSocket:
+            port: 9080
+          initialDelaySeconds: 60
+          timeoutSeconds: 1
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        env:
+        - name: CICS_USER
+          valueFrom:
+            configMapKeyRef:
+              name: zconcics-config
+              key: cics_user
+        - name: CICS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: zconcics-sec
+              key: password
+        - name: CICS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: zconcics-config
+              key: cics_host
+        - name: CICS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: zconcics-config
+              key: cics_port
+        securityContext:
+          allowPrivilegeEscalation: false
+      nodeName: wnode.winmvs3h.hursley.ibm.com
+      restartPolicy: Always
