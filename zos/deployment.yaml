@@ -16,7 +16,7 @@ spec:
         app: catalogmanager
       annotations:
         "zoscontainers.ibm.com/networking": "hybrid"
-        "zoscontainers.ibm.com/userid": "OCIUSER"
+        "zoscontainers.ibm.com/userid": "SMITHSO"
     spec:
       containers:
       - name: zconcics
