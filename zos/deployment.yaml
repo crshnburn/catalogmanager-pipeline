@@ -20,12 +20,8 @@ spec:
     spec:
       containers:
       - name: zconcics
-        image: docker-eu.artifactory.swg-devops.com/sys-k8s-zos-team-docker-local/cics-demo:latest
+        image: docker-eu-public.artifactory.swg-devops.com/zosconnect-docker-local/cics-demo:latest
         imagePullPolicy: Always
-        command: 
-        - sleep
-        args: 
-        - 10m
         readinessProbe:
           tcpSocket:
             port: 9080
