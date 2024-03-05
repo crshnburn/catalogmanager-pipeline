@@ -22,6 +22,10 @@ spec:
       - name: zconcics
         image: docker-eu-public.artifactory.swg-devops.com/zosconnect-docker-local/cics-demo:latest
         imagePullPolicy: Always
+        cmd:
+        - sleep
+        args:
+        - 10m
         readinessProbe:
           tcpSocket:
             port: 9080
