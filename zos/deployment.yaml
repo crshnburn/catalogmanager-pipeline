@@ -52,6 +52,6 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
       nodeName: wnode.winmvs3h.hursley.ibm.com
-      restartPolicy: Never
+      restartPolicy: Always
       imagePullSecrets:
       - name: regcred
