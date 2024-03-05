@@ -16,7 +16,7 @@ spec:
         app: catalogmanager
       annotations:
         zoscontainers.ibm.com/networking: hybrid
-        zoscontainers.ibm.com/userid: SMITHSO
+        zoscontainers.ibm.com/userid: OCIUSER
     spec:
       containers:
       - name: zconcics
@@ -52,6 +52,6 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
       nodeName: wnode.winmvs3h.hursley.ibm.com
-      restartPolicy: Always
+      restartPolicy: Never
       imagePullSecrets:
       - name: regcred
