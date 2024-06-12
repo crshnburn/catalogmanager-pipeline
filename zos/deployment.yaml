@@ -14,18 +14,13 @@ spec:
       labels:
         app: catalogmanager
       annotations:
-        zoscontainers.ibm.com/networking: hybrid
-        zoscontainers.ibm.com/userid: OCIUSER
+        zoscp.ibm.com/networking: hybrid
+        zoscp.ibm.com/userid: OCIUSER
     spec:
       containers:
       - name: zconcics
         image: docker-eu-public.artifactory.swg-devops.com/zosconnect-docker-local/cics-demo:latest
         imagePullPolicy: Always
-        command:
-        - /bin/sh
-        - -c
-        args:
-        - touch /output/logs/state && /opt/ibm/wlp/bin/server run defaultServer
         readinessProbe:
           tcpSocket:
             port: 9080
